@@ -17,7 +17,7 @@ int main(int argc, char ** argv)
 
   srand(seed);
 
-  printf("n = %d, seed = %d, max_num = %d, print = %d, epsilon = %lf\n\n",n,seed,max_num,print,epsilon);
+  if (world_rank == 0) printf("n = %d, seed = %d, max_num = %d, print = %d, epsilon = %lf, world_size = %d\n\n",n,seed,max_num,print,epsilon,world_size);
 
   double * x = (double *)calloc(n,sizeof(double));
   double * F = (double *)calloc(n,sizeof(double));
@@ -27,7 +27,11 @@ int main(int argc, char ** argv)
 
   force_calc_in_parallel(n,x,F,world_rank,world_size);
 
+  printf("Passed array force calc on %d.\n",world_rank);
+
   parallelize_force_array(MCW,world_rank,world_size,n,F);
+
+  printf("Passed array parallelization on %d.\n",world_rank);
 
   if (world_rank == 0 && print)
   {
