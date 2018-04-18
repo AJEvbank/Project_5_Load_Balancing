@@ -5,12 +5,12 @@
 #include "main.h"
 
 
-void printArray(int * array, int length)
+void printArray(double * array, int length)
 {
   int i;
   for(i = 0; i < length; i++)
   {
-    printf("%d,",array[i]);
+    printf("%lf,",array[i]);
   }
   return;
 }
@@ -55,6 +55,23 @@ double randomSign()
   {
     return -1.0;
   }
+}
+
+int force_calc(int n, double * x, double * F)
+{
+  int i,j;
+  double diff, tmp;
+  for(i = 1; i < n; i++)
+  {
+    for(j = 0; j < i; j++)
+    {
+      diff = x[i] - x[j];
+      tmp = 1.0/(diff * diff * diff);
+      F[i] += tmp;
+      F[j] -= tmp;
+    }
+  }
+  return 1;
 }
 
 #endif

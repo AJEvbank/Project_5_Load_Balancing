@@ -53,12 +53,14 @@ void CommLineArgs(int argc,
 
 int isNumber(const char * str);
 
-void printArray(int * array, int length);
+void printArray(double * array, int length);
 
 int getMax(int size);
 
 void generateArray(int n, double max_num, double * array);
 
 double randomSign();
+
+int force_calc(int n, double * x, double * F);
 
 #endif

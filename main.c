@@ -10,7 +10,7 @@ int main(int argc, char ** argv)
 
 
 
-  int n, i, j, k, seed, max_num, print;
+  int n, seed, max_num, print;
 
   CommLineArgs(argc,argv,&seed,&max_num,&n,&print);
 
@@ -18,12 +18,18 @@ int main(int argc, char ** argv)
 
   printf("n = %d, seed = %d, max_num = %d, print = %d\n\n",n,seed,max_num,print);
 
+  double * x = (double *)calloc(n,sizeof(double));
+  double * F = (double *)calloc(n,sizeof(double));
 
+  generateArray(n,max_num,x);
 
+  force_calc(n,x,F);
 
-
-
-
+  printf("\n\nx:\n\n");
+  printArray(x,n);
+  printf("\n\nF:\n\n");
+  printArray(F,n);
+  printf("\n\n");
 
   // MPI_Finalize();
   return 0;
