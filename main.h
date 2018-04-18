@@ -24,6 +24,7 @@
 #define PART 1
 #define INF (int)INFINITY
 #define FULL 0
+#define EPSILON 0.0001
 
 #define DB1 0
 #define DB2 0
@@ -48,7 +49,8 @@ void CommLineArgs(int argc,
                   int *seed,
                   int *max_num,
                   int *n,
-                  int *print
+                  int *print,
+                  double *epsilon
                  );
 
 int isNumber(const char * str);
@@ -62,5 +64,9 @@ void generateArray(int n, double max_num, double * array);
 double randomSign();
 
 int force_calc(int n, double * x, double * F);
+
+int force_calc_in_parallel(int n, double * x, double * F, int world_rank, int world_size);
+
+void parallelize_force_array(MPI_Comm mcw, int world_rank, int world_size, int n, double * F);
 
 #endif

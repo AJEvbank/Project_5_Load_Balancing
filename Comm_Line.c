@@ -9,16 +9,18 @@ void CommLineArgs(int argc,
                   int *seed,
                   int *max_num,
                   int *n,
-                  int *print
+                  int *print,
+                  double *epsilon
                  )
 {
-  *seed = SEED; *max_num = MAX_NUM; *n = N; *print = PRINT;
+  *seed = SEED; *max_num = MAX_NUM; *n = N; *print = PRINT, *epsilon = EPSILON;
   static char * SHORT = "";
 	static struct option OPTS[] =
 																{
                                   {"seed",required_argument,0,'s'},
 																	{"max_num",required_argument,0,'m'},
                                   {"n",required_argument,0,'n'},
+                                  {"epsilon",required_argument,0,'e'},
                                   {"print",no_argument,0,'p'},
 																	{0,0,0,0}
 																};
@@ -67,6 +69,16 @@ void CommLineArgs(int argc,
                 break;
       case 'p':
                 *print = 1;
+                break;
+      case 'e':
+                if(isNumber(optarg))
+                {
+                  *epsilon = atol(optarg);
+                }
+                else
+                {
+                  *epsilon = EPSILON;
+                }
                 break;
       default:
                 printf("default case\n");
