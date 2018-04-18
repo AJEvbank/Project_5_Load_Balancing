@@ -16,7 +16,7 @@
 #define MCW MPI_COMM_WORLD
 #define SEED 1
 #define MAX_NUM 100
-#define QUAN (int)(((double)rand())/((double)RAND_MAX) * (double)max_num) + 1
+#define QUAN (((double)rand())/((double)RAND_MAX) * (double)max_num)
 #define PRINT 0
 #define N 10
 #define SOURCE 0
@@ -48,38 +48,17 @@ void CommLineArgs(int argc,
                   int *seed,
                   int *max_num,
                   int *n,
-                  int *connectivity,
-                  int *part,
-                  int *full,
                   int *print
                  );
 
 int isNumber(const char * str);
 
-void printGraph(int n, int * graph, int print);
-
 void printArray(int * array, int length);
-
-void printValue(int value);
-
-int min(int i, int j);
-
-int isConnected(int connectivity, int part);
-
-void makeGraph(int n, int * edge, int max_num, int connectivity, int part);
-
-void makeGraphTotal(int n, int * edge, int max_num, int connectivity, int part);
-
-int addWithInfinity(int A, int B);
 
 int getMax(int size);
 
-void getkRowAndCol(MPI_Comm mcw, int n, int k, int * kthCol, int * kthRow, int * myOriginMatrix);
+void generateArray(int n, double max_num, double * array);
 
-int isDiagonalProcess(int world_rank, int world_size);
-
-void loopOperation(int offset, int level, int * receivedArray, int rootP);
-
-void ParallelizeMatrix(MPI_Comm mcw, int * myMatrix, int slice, int n, int rootP, int * recv);
+double randomSign();
 
 #endif
