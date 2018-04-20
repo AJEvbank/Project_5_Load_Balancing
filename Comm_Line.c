@@ -73,7 +73,7 @@ void CommLineArgs(int argc,
       case 'e':
                 if(isNumber(optarg))
                 {
-                  *epsilon = atol(optarg);
+                  *epsilon = atof(optarg);
                 }
                 else
                 {

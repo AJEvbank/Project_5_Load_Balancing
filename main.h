@@ -26,8 +26,8 @@
 #define FULL 0
 #define EPSILON 0.0001
 
-#define DB1 0
-#define DB2 0
+#define DEBUG_1 0
+#define DEBUG_2 0
 
 // (int)(((double)rand())/((double)RAND_MAX) * 32)
 // u++

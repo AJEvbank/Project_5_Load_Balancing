@@ -27,11 +27,11 @@ int main(int argc, char ** argv)
 
   force_calc_in_parallel(n,x,F,world_rank,world_size);
 
-  printf("Passed array force calc on %d.\n",world_rank);
+  if (DEBUG_1) printf("Passed array force calc on %d.\n",world_rank);
 
   parallelize_force_array(MCW,world_rank,world_size,n,F);
 
-  printf("Passed array parallelization on %d.\n",world_rank);
+  if (DEBUG_1) printf("Passed array parallelization on %d.\n",world_rank);
 
   if (world_rank == 0 && print)
   {
@@ -51,7 +51,7 @@ int main(int argc, char ** argv)
       check = nF[i] - F[i];
       if(fabs(check) > epsilon)
       {
-        printf("Error at %d: %lf != %lf\n",i,nF[i],F[i]);
+        printf("Error at %d: %lf != %lf, check = %lf\n",i,nF[i],F[i],check);
       }
     }
   }

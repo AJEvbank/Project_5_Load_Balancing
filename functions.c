@@ -10,7 +10,7 @@ void printArray(double * array, int length)
   int i;
   for(i = 0; i < length; i++)
   {
-    printf("%lf,",array[i]);
+    printf("%d => %lf,\n",i,array[i]);
   }
   return;
 }
@@ -69,6 +69,9 @@ int force_calc(int n, double * x, double * F)
       tmp = 1.0/(diff * diff * diff);
       F[i] += tmp;
       F[j] -= tmp;
+      if(DEBUG_2 && (i == 7 || j == 7)) {
+        printf("Sequential: At (%d,%d) tmp = %lf, diff = %lf\n",i,j,tmp,diff);
+      }
     }
   }
   return 1;

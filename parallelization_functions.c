@@ -22,6 +22,9 @@ int force_calc_in_parallel(int n, double * x, double * F, int world_rank, int wo
         F[i] += tmp;
         F[j] -= tmp;
         calc_done++;
+        if(DEBUG_2 && (i == 7 || j == 7)) {
+          printf("Parallel: At (%d,%d) tmp = %lf, diff = %lf\n",i,j,tmp,diff);
+        }
       }
       counter++;
     }
@@ -34,10 +37,9 @@ void parallelize_force_array(MPI_Comm mcw, int world_rank, int world_size, int n
   int i, j, k, max = getMax(world_size), receiver, sender, tag = 0;
   double * buffer = (double *)calloc(n,sizeof(double));
   MPI_Status status;
-  if(world_rank == 0) printf("max = %d\n",max);
+
   for(i = 1, j = 2; j <= max; i *= 2, j *= 2)
   {
-    printf("world_rank = %d\n",world_rank);
     if((world_rank % j) == i)
     {
       // Send
