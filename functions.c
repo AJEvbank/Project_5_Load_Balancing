@@ -39,7 +39,7 @@ void generateArray(int n, double max_num, double * array)
   int i;
   for(i = 0; i < n; i++)
   {
-    array[i] = QUAN * randomSign();
+    array[i] = QUAN2 * randomSign();
   }
   return;
 }
@@ -69,7 +69,7 @@ int force_calc(int n, double * x, double * F)
       tmp = 1.0/(diff * diff * diff);
       F[i] += tmp;
       F[j] -= tmp;
-      if(DEBUG_2 && (i == 7 || j == 7)) {
+      if(DEBUG_1 && (i == 7 || j == 7)) {
         printf("Sequential: At (%d,%d) tmp = %lf, diff = %lf\n",i,j,tmp,diff);
       }
     }

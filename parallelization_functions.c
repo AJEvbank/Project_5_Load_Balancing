@@ -6,28 +6,29 @@
 
 int force_calc_in_parallel(int n, double * x, double * F, int world_rank, int world_size)
 {
-  int i,j, calc_done = 0, counter = 0;
+  int i,j, calc_done = 0, flag = 0;
   double diff, tmp;
   int num_calc = (n * (n - 1)) / 2;
   int segment =  num_calc / world_size;
   int start = segment * world_rank;
-  for(i = 1; i < n; i++)
+  int I = ((sqrt((8 * start) + 1) - 1) * 0.5) + 1;
+  int J = start - I * (I - 1)/2;
+  if (DEBUG_2) printf("I = %d, J = %d where start = %d on %d\n",I,J,start,world_rank);
+  for(i = I; i < n && calc_done < segment; i++)
   {
-    for(j = 0; j < i; j++)
+    for(j = J; j < i && calc_done < segment; j++)
     {
-      if(counter >= start && calc_done < segment)
-      {
-        diff = x[i] - x[j];
-        tmp = 1.0/(diff * diff * diff);
-        F[i] += tmp;
-        F[j] -= tmp;
-        calc_done++;
-        if(DEBUG_2 && (i == 7 || j == 7)) {
-          printf("Parallel: At (%d,%d) tmp = %lf, diff = %lf\n",i,j,tmp,diff);
-        }
+      diff = x[i] - x[j];
+      tmp = 1.0/(diff * diff * diff);
+      F[i] += tmp;
+      F[j] -= tmp;
+      calc_done++;
+      if (DEBUG_2 && flag == 0) {
+        flag = 1;
+        printf("i = %d, j = %d on %d\n",i,j,world_rank);
       }
-      counter++;
     }
+    J = 0;
   }
   return 1;
 }

@@ -17,6 +17,7 @@
 #define SEED 1
 #define MAX_NUM 100
 #define QUAN (((double)rand())/((double)RAND_MAX) * (double)max_num)
+#define QUAN2 (((double)((int)(QUAN * 100))/(double)100) + 0.5)
 #define PRINT 0
 #define N 10
 #define SOURCE 0
