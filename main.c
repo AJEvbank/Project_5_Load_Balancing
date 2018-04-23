@@ -20,8 +20,8 @@ int main(int argc, char ** argv)
   if (world_rank == 0)
   {
     printf("n = %d, seed = %d, max_num = %Lf, print = %d, epsilon = %Lf, min_num = %Lf, world_size = %d\n\n",n,seed,max_num,print,epsilon,min_num,world_size);
-    printf("LDBL_MAX = %Lf\n",(long double)LDBL_MAX);
-    printf("LDBL_MAX = %Lf\n",(long double)1.0/(long double)LDBL_MAX);
+    // printf("LDBL_MAX = %Lf\n",(long double)LDBL_MAX);
+    // printf("LDBL_MAX = %Lf\n",(long double)1.0/(long double)LDBL_MAX);
   }
 
   long double * x = (long double *)calloc(n,sizeof(long double));
