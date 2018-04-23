@@ -4,10 +4,10 @@
 
 #include "main.h"
 
-int force_calc_in_parallel(int n, double * x, double * F, int world_rank, int world_size)
+int force_calc_in_parallel(int n, long double * x, long double * F, int world_rank, int world_size)
 {
   int i,j, calc_done = 0, flag = 0;
-  double diff, tmp;
+  long double diff, tmp;
   int num_calc = (n * (n - 1)) / 2;
   int segment =  num_calc / world_size;
   int start = segment * world_rank;
@@ -33,10 +33,10 @@ int force_calc_in_parallel(int n, double * x, double * F, int world_rank, int wo
   return 1;
 }
 
-void parallelize_force_array(MPI_Comm mcw, int world_rank, int world_size, int n, double * F)
+void parallelize_force_array(MPI_Comm mcw, int world_rank, int world_size, int n, long double * F)
 {
   int i, j, k, max = getMax(world_size), receiver, sender, tag = 0;
-  double * buffer = (double *)calloc(n,sizeof(double));
+  long double * buffer = (long double *)calloc(n,sizeof(long double));
   MPI_Status status;
 
   for(i = 1, j = 2; j <= max; i *= 2, j *= 2)
@@ -47,7 +47,7 @@ void parallelize_force_array(MPI_Comm mcw, int world_rank, int world_size, int n
       receiver = world_rank - i;
       MPI_Send( F,
                 n,
-                MPI_DOUBLE,
+                MPI_LONG_DOUBLE,
                 receiver,
                 tag,
                 mcw);
@@ -61,7 +61,7 @@ void parallelize_force_array(MPI_Comm mcw, int world_rank, int world_size, int n
       {
         MPI_Recv( buffer,
                   n,
-                  MPI_DOUBLE,
+                  MPI_LONG_DOUBLE,
                   sender,
                   MPI_ANY_TAG,
                   mcw,

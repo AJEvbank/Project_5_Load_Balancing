@@ -5,12 +5,22 @@
 #include "main.h"
 
 
-void printArray(double * array, int length)
+void printArray(long double * array, int length)
 {
   int i;
   for(i = 0; i < length; i++)
   {
-    printf("%d => %lf,\n",i,array[i]);
+    printf("%d => %Lf,\n",i,array[i]);
+  }
+  return;
+}
+
+void printArrays(long double * array1, long double * array2, int length)
+{
+  int i;
+  for(i = 0; i < length; i++)
+  {
+    printf("%d => %-20.2Lf\t%-20.2Lf\n",i,array1[i],array2[i]);
   }
   return;
 }
@@ -34,12 +44,12 @@ int getMax(int size)
   return max;
 }
 
-void generateArray(int n, double max_num, double * array)
+void generateArray(int n, long double max_num, long double min_num, long double * array)
 {
   int i;
   for(i = 0; i < n; i++)
   {
-    array[i] = QUAN2 * randomSign();
+    array[i] = QUAN * randomSign();
   }
   return;
 }
@@ -57,10 +67,10 @@ double randomSign()
   }
 }
 
-int force_calc(int n, double * x, double * F)
+int force_calc(int n, long double * x, long double * F)
 {
   int i,j;
-  double diff, tmp;
+  long double diff, tmp;
   for(i = 1; i < n; i++)
   {
     for(j = 0; j < i; j++)
@@ -70,7 +80,7 @@ int force_calc(int n, double * x, double * F)
       F[i] += tmp;
       F[j] -= tmp;
       if(DEBUG_1 && (i == 7 || j == 7)) {
-        printf("Sequential: At (%d,%d) tmp = %lf, diff = %lf\n",i,j,tmp,diff);
+        printf("Sequential: At (%d,%d) tmp = %Lf, diff = %Lf\n",i,j,tmp,diff);
       }
     }
   }

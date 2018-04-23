@@ -7,13 +7,14 @@
 void CommLineArgs(int argc,
                   char ** argv,
                   int *seed,
-                  int *max_num,
+                  long double *max_num,
                   int *n,
                   int *print,
-                  double *epsilon
+                  long double *epsilon,
+                  long double *min_num
                  )
 {
-  *seed = SEED; *max_num = MAX_NUM; *n = N; *print = PRINT, *epsilon = EPSILON;
+  *seed = SEED; *max_num = MAX_NUM; *n = N; *print = PRINT, *epsilon = EPSILON, *min_num = MIN_NUM;
   static char * SHORT = "";
 	static struct option OPTS[] =
 																{
@@ -21,6 +22,7 @@ void CommLineArgs(int argc,
 																	{"max_num",required_argument,0,'m'},
                                   {"n",required_argument,0,'n'},
                                   {"epsilon",required_argument,0,'e'},
+                                  {"min_num",required_argument,0,'i'},
                                   {"print",no_argument,0,'p'},
 																	{0,0,0,0}
 																};
@@ -50,13 +52,23 @@ void CommLineArgs(int argc,
       case 'm':
                 if(isNumber(optarg))
                 {
-                  *max_num = atoi(optarg);
+                  *max_num = strtold(optarg, NULL);
                 }
                 else
                 {
                   *max_num = MAX_NUM;
                 }
                 break;
+    case 'i':
+              if(isNumber(optarg))
+              {
+                *min_num = strtold(optarg, NULL);
+              }
+              else
+              {
+                *min_num = MIN_NUM;
+              }
+              break;
       case 'n':
                 if(isNumber(optarg))
                 {
@@ -73,7 +85,7 @@ void CommLineArgs(int argc,
       case 'e':
                 if(isNumber(optarg))
                 {
-                  *epsilon = atof(optarg);
+                  *epsilon = strtold(optarg, NULL);
                 }
                 else
                 {
